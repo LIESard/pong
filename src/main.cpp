@@ -19,7 +19,7 @@ void draw(sf::RenderWindow * window, Bat bats[], Ball ball) {
     window->display();
 }
 
-void update(sf::RenderWindow * window, Bat bats[], Ball ball) {
+void update(sf::RenderWindow * window, Bat bats[], Ball * ball) {
     sf::Event event;
 
     while (window->pollEvent(event)) {
@@ -52,12 +52,12 @@ void update(sf::RenderWindow * window, Bat bats[], Ball ball) {
         for (int i = 0; i < 2; i++) {
             bats[i].checkBoundaries(WIDTH, HEIGHT);
             
-            if (ball.getGlobalBounds().intersects(bats[i].getGlobalBounds())) {
-                ball.setSpeed(-ball.getSpeed());
+            if (ball->getGlobalBounds().intersects(bats[i].getGlobalBounds())) {
+                ball->setSpeed(-ball->getSpeed());
             }
         }
 
-        ball.move(ball.getSpeed(), 0);
+        ball->move(ball->getSpeed(), 0);
     }
 
 }
@@ -75,7 +75,7 @@ int main(int argc, char ** argv) {
 
     while (window.isOpen()) {
         draw(&window, bats, ball);
-        update(&window, bats, ball);
+        update(&window, bats, &ball);
     }
 
     return 0;
