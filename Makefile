@@ -1,18 +1,15 @@
-CC=c++
 SRCDIR=src
-FLAGS=-Wall -Werror -std=c++11 -c -g -O
-LIBS=-lsfml-graphics -lsfml-window -lsfml-system
+CXXFLAGS=-Wall -Werror -std=c++11 -c -g -O
+LDFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 SRC=$(wildcard $(SRCDIR)/*.cpp)
-OBJS=$(notdir $(SRC:.cpp=.o))
-OUT=pong
-
+OBJS=$(SRC:.cpp=.o)
+	OUT=pong
+	 
 all: $(OUT)
-
+	 
 $(OUT): $(OBJS)
-	$(CC) $(OBJS) -o $(OUT) $(LIBS)
-
-%.o: $(SRCDIR)/%.cpp
-	$(CC) $(FLAGS) $<
-
+		$(CXX) $(OBJS) -o $(OUT) $(LDFLAGS)
+		 
 clean:
-	rm -f $(OUT) $(OBJS)
+		rm -f $(OUT) $(OBJS)
+
