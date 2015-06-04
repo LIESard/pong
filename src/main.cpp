@@ -6,6 +6,7 @@
 
 const int WIDTH = 640, HEIGHT = 480;
 const std::string TITLE = "Pong";
+static bool paused = false;
 
 void draw(sf::RenderWindow * window, Bat bats[], Ball ball) {
     window->clear();
@@ -24,34 +25,40 @@ void update(sf::RenderWindow * window, Bat bats[], Ball ball) {
     while (window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             window->close();
+        } else if (event.type == sf::Event::LostFocus) {
+            paused = true;
+        } else if (event.type == sf::Event::GainedFocus) {
+            paused = false;
         }
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-        window->close();
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        bats[0].sf::RectangleShape::move(0, -6);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        bats[0].sf::RectangleShape::move(0, 6);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        bats[1].sf::RectangleShape::move(0, -6);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        bats[1].sf::RectangleShape::move(0, 6);
-    }
-
-    for (int i = 0; i < 2; i++) {
-        bats[i].checkBoundaries(WIDTH, HEIGHT);
-        
-        if (ball.getGlobalBounds().intersects(bats[i].getGlobalBounds())) {
-            ball.setSpeed(-ball.getSpeed());
+    if (!paused) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+            window->close();
         }
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            bats[0].sf::RectangleShape::move(0, -6);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            bats[0].sf::RectangleShape::move(0, 6);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            bats[1].sf::RectangleShape::move(0, -6);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            bats[1].sf::RectangleShape::move(0, 6);
+        }
 
-    ball.move(ball.getSpeed(), 0);
+        for (int i = 0; i < 2; i++) {
+            bats[i].checkBoundaries(WIDTH, HEIGHT);
+            
+            if (ball.getGlobalBounds().intersects(bats[i].getGlobalBounds())) {
+                ball.setSpeed(-ball.getSpeed());
+            }
+        }
+
+        ball.move(ball.getSpeed(), 0);
+    }
 
 }
 
