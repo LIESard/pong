@@ -2,10 +2,11 @@
 #define BAT
 
 #include <SFML/Graphics.hpp>
+#include "Entity.hpp"
 
-class Bat : public sf::RectangleShape {
+class Bat : public Entity {
 public:
-    Bat(int x, int y);
+    Bat(int x, int y) : Entity(x, y, 10, 100) {}
 
     void checkBoundaries(int width, int height);
 

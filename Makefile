@@ -1,9 +1,9 @@
 SRCDIR=src
-CXXFLAGS=-Wall -Werror -std=c++11 -c -g -O
+CXXFLAGS=-Wall -Werror -std=c++14 -c -g -O
 LDFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 SRC=$(wildcard $(SRCDIR)/*.cpp)
 OBJS=$(SRC:.cpp=.o)
-	OUT=pong
+OUT=pong
 	 
 all: $(OUT)
 	 

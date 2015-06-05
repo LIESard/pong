@@ -3,11 +3,6 @@
 
 #include "Bat.hpp"
 
-Bat::Bat(int x, int y) {
-    setSize(sf::Vector2f(10, 100));
-    setPosition(x, y);
-}
-
 void Bat::checkBoundaries(int width, int height) {
     if (getX() < 0) {
         setPosition(0, getY());

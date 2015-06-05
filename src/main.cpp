@@ -4,11 +4,10 @@
 #include "Bat.hpp"
 #include "Ball.hpp"
 
-const int WIDTH = 640, HEIGHT = 480;
-const std::string TITLE = "Pong";
+constexpr int WIDTH = 640, HEIGHT = 480;
 static bool paused = false;
 
-void draw(sf::RenderWindow * window, Bat bats[], Ball ball) {
+void draw(sf::RenderWindow * window, Bat bats[2], Ball ball) {
     window->clear();
 
     for (int i = 0; i < 2; i++) {
@@ -19,7 +18,7 @@ void draw(sf::RenderWindow * window, Bat bats[], Ball ball) {
     window->display();
 }
 
-void update(sf::RenderWindow * window, Bat bats[], Ball * ball) {
+void update(sf::RenderWindow * window, Bat bats[2], Ball * ball) {
     sf::Event event;
 
     while (window->pollEvent(event)) {
@@ -70,7 +69,7 @@ int main(int argc, char ** argv) {
     Bat bats[2] = {bat1, bat2};
     Ball ball(WIDTH / 2, HEIGHT / 2);
 
-    window.create(mode, TITLE);
+    window.create(mode, "Pong");
     window.setVerticalSyncEnabled(true);
 
     while (window.isOpen()) {
