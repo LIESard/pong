@@ -3,31 +3,26 @@
 
 #include "Bat.hpp"
 
-void Bat::checkBoundaries(int width, int height) {
+Bat::Bat(int x, int y) : Entity(x, y, 10, 100, 6) {}
+
+void Bat::checkCollision(int x, int y) {
     if (getX() < 0) {
         setPosition(0, getY());
-    } else if (getX() + getWidth() > width) {
-        setPosition(width - getWidth(), getY());
+    } else if (getX() + getWidth() > x) {
+        setPosition(x - getWidth(), getY());
     }
     if (getY() < 0) {
         setPosition(getX(), 0);
-    } else if (getY() + getHeight() > height) {
-        setPosition(getX(), height - getHeight());
+    } else if (getY() + getHeight() > y) {
+        setPosition(getX(), y - getHeight());
     }
 }
 
-int Bat::getX() {
-    return getGlobalBounds().left;
-}
-
-int Bat::getY() {
-    return getGlobalBounds().top;
-}
-
-int Bat::getWidth() {
-    return getGlobalBounds().width;
-}
-
-int Bat::getHeight() {
-    return getGlobalBounds().height;
+void Bat::update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) {
+    if (sf::Keyboard::isKeyPressed(keyUp)) {
+        move(0, -4);
+    }
+    if (sf::Keyboard::isKeyPressed(keyDown)) {
+        move(0, 4);
+    }
 }

@@ -6,14 +6,10 @@
 
 class Bat : public Entity {
 public:
-    Bat(int x, int y) : Entity(x, y, 10, 100) {}
+    Bat(int x, int y);
 
-    void checkBoundaries(int width, int height);
-
-    int getX();
-    int getY();
-    int getWidth();
-    int getHeight();
+    void checkCollision(int x, int y);
+    void update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown);
 };
 
 #endif

@@ -2,34 +2,14 @@
 
 #include "Ball.hpp"
 
-Ball::Ball(int x, int y) {
-    setSize(sf::Vector2f(10, 10));
-    setOrigin(getWidth() / 2, getHeight() / 2);
-    setPosition(x, y);
+Ball::Ball(int x, int y) : Entity(x, y, 10, 10, 4) {}
 
-    velocityx = 4;
+void Ball::checkCollision(sf::FloatRect rect) {
+    if (getGlobalBounds().intersects(rect)) {
+        setSpeed(-getSpeed());
+    }
 }
 
-void Ball::setSpeed(int speed) {
-    velocityx = speed;
-}
-
-int Ball::getSpeed() {
-    return velocityx;
-}
-
-int Ball::getX() {
-    return getGlobalBounds().left;
-}
-
-int Ball::getY() {
-    return getGlobalBounds().top;
-}
-
-int Ball::getWidth() {
-    return getGlobalBounds().width;
-}
-
-int Ball::getHeight() {
-    return getGlobalBounds().height;
+void Ball::update() {
+    move(getSpeed(), 0);
 }

@@ -4,21 +4,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "Bat.hpp"
+#include "Entity.hpp"
 
-class Ball : public sf::RectangleShape {
+class Ball : public Entity {
 public:
     Ball(int x, int y);
 
-    void checkCollision(Bat bat);
-    int getX();
-    int getY();
-    int getWidth();
-    int getHeight();
-    int getSpeed();
-    void setSpeed(int speed);
-
-private:
-    int velocityx;
+    void checkCollision(sf::FloatRect rect);
+    void update();
 };
 
 #endif

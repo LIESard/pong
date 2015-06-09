@@ -1,5 +1,6 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 #include "Bat.hpp"
 #include "Ball.hpp"
@@ -7,18 +8,17 @@
 constexpr int WIDTH = 640, HEIGHT = 480;
 static bool paused = false;
 
-void draw(sf::RenderWindow * window, Bat bats[2], Ball ball) {
+void draw(sf::RenderWindow * window, Entity entities[3]) {
     window->clear();
 
-    for (int i = 0; i < 2; i++) {
-        window->draw(bats[i]);
+    for (int i = 0; i < 3; i++) {
+        window->draw(entities[i]);
     }
-    window->draw(ball);
 
     window->display();
 }
 
-void update(sf::RenderWindow * window, Bat bats[2], Ball * ball) {
+void update(sf::RenderWindow * window, Entity entities[3]) {
     sf::Event event;
 
     while (window->pollEvent(event)) {
@@ -35,28 +35,14 @@ void update(sf::RenderWindow * window, Bat bats[2], Ball * ball) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
             window->close();
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            bats[0].sf::RectangleShape::move(0, -6);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            bats[0].sf::RectangleShape::move(0, 6);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            bats[1].sf::RectangleShape::move(0, -6);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            bats[1].sf::RectangleShape::move(0, 6);
-        }
 
         for (int i = 0; i < 2; i++) {
-            bats[i].checkBoundaries(WIDTH, HEIGHT);
-            
-            if (ball->getGlobalBounds().intersects(bats[i].getGlobalBounds())) {
-                ball->setSpeed(-ball->getSpeed());
-            }
+            entities[i].checkCollision(sf::FloatRect(WIDTH, HEIGHT, 0, 0));
+            entities[2].checkCollision(entities[i].getGlobalBounds());
         }
-
-        ball->move(ball->getSpeed(), 0);
+        entities[0].update(sf::Keyboard::Comma, sf::Keyboard::O);
+        entities[1].update(sf::Keyboard::Up, sf::Keyboard::Down);
+        entities[2].update();
     }
 
 }
@@ -64,17 +50,17 @@ void update(sf::RenderWindow * window, Bat bats[2], Ball * ball) {
 int main(int argc, char ** argv) {
     sf::VideoMode mode(WIDTH, HEIGHT);
     sf::RenderWindow window;
-    Bat bat1(10, 10);
-    Bat bat2(WIDTH - 20, 10);
-    Bat bats[2] = {bat1, bat2};
+    Bat bat1(10, HEIGHT / 2 - 50);
+    Bat bat2(WIDTH - 20, HEIGHT / 2 - 50);
     Ball ball(WIDTH / 2, HEIGHT / 2);
+    Entity entities[3] = {bat1, bat2, ball};
 
     window.create(mode, "Pong");
     window.setVerticalSyncEnabled(true);
 
     while (window.isOpen()) {
-        draw(&window, bats, ball);
-        update(&window, bats, &ball);
+        draw(&window, entities);
+        update(&window, entities);
     }
 
     return 0;
