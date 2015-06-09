@@ -30,5 +30,3 @@ void Bat::update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) {
 }
 
 void Bat::update() {}
-
-void Bat::changeScore(int x, int y, int * score1, int * score2) {}
