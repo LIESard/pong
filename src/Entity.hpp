@@ -7,10 +7,10 @@ class Entity : public sf::RectangleShape {
 public:
     Entity(int x, int y, int width, int height, int speed);
 
-    virtual void update();
-    virtual void update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown);
-    virtual void checkCollision(sf::FloatRect rect);
-    virtual void checkCollision(int x, int y);
+    virtual void update() = 0;
+    virtual void update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) = 0;
+    virtual void checkCollision(sf::FloatRect rect) = 0;
+    virtual void checkCollision(int x, int y) = 0;
     void setSpeed(int speed);
     int getX();
     int getY();

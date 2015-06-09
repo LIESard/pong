@@ -11,7 +11,9 @@ public:
     Ball(int x, int y);
 
     void checkCollision(sf::FloatRect rect);
+    void checkCollision(int x, int y);
     void update();
+    void update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown);
 };
 
 #endif
