@@ -18,7 +18,7 @@ void draw(sf::RenderWindow * window, Entity * entities[3]) {
     window->display();
 }
 
-void update(sf::RenderWindow * window, Entity * entities[3]) {
+void update(sf::RenderWindow * window, Entity * entities[3], int * score1, int * score2) {
     sf::Event event;
 
     while (window->pollEvent(event)) {
@@ -44,6 +44,7 @@ void update(sf::RenderWindow * window, Entity * entities[3]) {
         entities[0]->update(sf::Keyboard::Comma, sf::Keyboard::O);
         entities[1]->update(sf::Keyboard::Up, sf::Keyboard::Down);
         entities[2]->update();
+        entities[2]->changeScore(WIDTH, HEIGHT, score1, score2);
     }
 
 }
@@ -55,13 +56,14 @@ int main(int argc, char ** argv) {
     Bat bat2(WIDTH - 20, HEIGHT / 2 - 50);
     Ball ball(WIDTH / 2, HEIGHT / 2);
     Entity * entities[3] = {&bat1, &bat2, &ball};
+    int bat1score = 0, bat2score = 0;
 
     window.create(mode, "Pong");
     window.setVerticalSyncEnabled(true);
 
     while (window.isOpen()) {
         draw(&window, entities);
-        update(&window, entities);
+        update(&window, entities, &bat1score, &bat2score);
     }
 
     return 0;

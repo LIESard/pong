@@ -12,6 +12,7 @@ public:
     void checkCollision(sf::FloatRect rect);
     void update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown);
     void update();
+    void changeScore(int x, int y, int * score1, int * score2);
 };
 
 #endif

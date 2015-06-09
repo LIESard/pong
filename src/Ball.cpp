@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "Ball.hpp"
@@ -27,3 +28,19 @@ void Ball::update() {
 }
 
 void Ball::update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) {}
+
+void Ball::changeScore(int x, int y, int * score1, int * score2) {
+    bool lost = false;
+    if (getX() < 0) {
+        (*score2)++;
+        lost = true;
+    } else if (getX() + getWidth() > x) {
+        (*score1)++;
+        lost = true;
+    }
+
+    if (lost) {
+        std::cout << *score1 << " | " << *score2 << std::endl;
+        setPosition(x / 2 - getWidth() / 2, y / 2 - getHeight() / 2);
+    }
+}
