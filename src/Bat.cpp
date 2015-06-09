@@ -3,7 +3,7 @@
 
 #include "Bat.hpp"
 
-Bat::Bat(int x, int y) : Entity(x, y, 10, 100, 6) {}
+Bat::Bat(int x, int y) : Entity(x, y, 10, 100, 0, 6) {}
 
 void Bat::checkCollision(int x, int y) {
     if (getX() < 0) {
@@ -18,6 +18,8 @@ void Bat::checkCollision(int x, int y) {
     }
 }
 
+void Bat::checkCollision(sf::FloatRect rect) {}
+
 void Bat::update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) {
     if (sf::Keyboard::isKeyPressed(keyUp)) {
         move(0, -4);
@@ -26,3 +28,5 @@ void Bat::update(sf::Keyboard::Key keyUp, sf::Keyboard::Key keyDown) {
         move(0, 4);
     }
 }
+
+void Bat::update() {}

@@ -36,17 +36,14 @@ void update(sf::RenderWindow * window, Entity * entities[3]) {
             window->close();
         }
 
-        try {
-            for (int i = 0; i < 2; i++) {
-                entities[i]->checkCollision(sf::FloatRect(WIDTH, HEIGHT, 0, 0));
-                entities[2]->checkCollision(entities[i]->getGlobalBounds());
-            }
-            entities[0]->update(sf::Keyboard::Comma, sf::Keyboard::O);
-            entities[1]->update(sf::Keyboard::Up, sf::Keyboard::Down);
-            entities[2]->update();
-        } catch (int n) {
-            std::cout << "Error: " << n << std::endl;
+        for (int i = 0; i < 2; i++) {
+            entities[i]->checkCollision(WIDTH, HEIGHT);
+            entities[2]->checkCollision(entities[i]->getGlobalBounds());
         }
+        entities[2]->checkCollision(WIDTH, HEIGHT);
+        entities[0]->update(sf::Keyboard::Comma, sf::Keyboard::O);
+        entities[1]->update(sf::Keyboard::Up, sf::Keyboard::Down);
+        entities[2]->update();
     }
 
 }

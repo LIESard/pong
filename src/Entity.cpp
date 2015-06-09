@@ -2,11 +2,28 @@
 
 #include "Entity.hpp"
 
-Entity::Entity(int x, int y, int width, int height, int speed) {
+Entity::Entity(int x, int y, int width, int height, int speedx, int speedy) {
     setSize(sf::Vector2f(width, height));
     setPosition(x, y);
 
-    this->speed = speed;
+    this->speedx = speedx;
+    this->speedy = speedy;
+}
+
+void Entity::setSpeedX(float speed) {
+    speedx = speed;
+}
+
+float Entity::getSpeedX() {
+    return speedx;
+}
+
+void Entity::setSpeedY(float speed) {
+    speedy = speed;
+}
+
+float Entity::getSpeedY() {
+    return speedy;
 }
 
 int Entity::getX() {
@@ -23,12 +40,4 @@ int Entity::getWidth() {
 
 int Entity::getHeight() {
     return getGlobalBounds().height;
-}
-
-int Entity::getSpeed() {
-    return speed;
-}
-
-void Entity::setSpeed(int speed) {
-    this->speed = speed;
 }
